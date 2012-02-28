@@ -1,0 +1,257 @@
+/* Mixins
+* ----------------------------------------------------------------- */
+
+@import "meetup_mixins.less";
+
+/* Variables
+* ----------------------------------------------------------------- */
+
+/* colors */
+
+@active: #3c9cff;
+@secondary: @active;
+@regular: #595959;
+@light: @regular + #444;
+
+@white: #ffffff;
+@black: #000000;
+
+@notice-bg: #FFDE6B;
+@notice: #8d6d00;
+
+@twitter:#3fc7f7;
+@google:#f2af16;
+@dribbble:#ea4c88;
+@flickr1:#0063dc;
+@flickr2:#ff0084;
+@forrst:#5b9a68;
+
+/* font stacks */
+
+@sans: 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+@cubano: 'CubanoRegular', @sans;
+
+
+/* sizes */
+
+@fontsize: 15px;
+@baseline: 1.7em;
+
+/* Basics
+* ----------------------------------------------------------------- */ 
+
+.right {float:right;}
+.left {float:left;}
+
+a, a:active, a:link, a:visited {
+	color:@active;
+	text-decoration:none;
+}
+
+a:hover {
+	color: (@active + #333);
+}
+
+span.active {
+        color: @active;
+}
+
+span.white {
+        color:@white;
+}
+
+span.notice {
+        color: @notice;
+        background-color: @notice-bg;
+        padding:2px 4px;
+        .border-radius(2px);
+        text-shadow: 0 1px 0 rgba(255,255,255,.7);
+}
+
+/* Typography (v-rhythm still needs work)
+* ----------------------------------------------------------------- */ 
+
+body {
+        font-family:@helvetica;
+        font-size: @fontsize;
+        line-height:@baseline;
+        color: @regular;
+}
+
+h1, h2, h3, h4, h5, h6{
+	    font-family:@cubano;
+        font-weight:normal;
+        line-height: ( @baseline / 2 );
+        margin: ( @baseline * 0.8 ) 0;
+}
+
+h1 {font-size:(@fontsize * 2)}
+h2 {font-size:(@fontsize * 2)}
+h3 {font-size:(@fontsize * 1.5)}
+
+p, ul, ol, blockquote, img  {
+        display:block;
+        font-size: @fontsize;
+}
+
+/* General
+* ----------------------------------------------------------------- */
+
+html {
+    /*
+        background: #fff url('@{themeurl}/images/body-bg.png');
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        */
+}
+
+body {
+        color:@regular;
+        -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+        -webkit-text-size-adjust: 100%;
+}
+
+#terminal-footer {
+        padding:20px 0;
+        background:#282828;
+        color:@light;
+}
+
+#terminal-footer p {
+        font-size:12px;
+        line-height:30px;
+        margin:5px 0;
+}
+
+/* Home
+* ----------------------------------------------------------------- */
+
+h1.home-title {
+        font-size:70px;
+        color:@white;
+        margin:60px 0 30px;
+        text-shadow: 0 2px 2px ( @active - #333), 0 10px 10px rgba(0,0,0,0.2);
+}
+/*
+h1.home-title {
+        font-size:120px;
+        color:@active;
+        margin:30px 0;
+        text-shadow: 0 2px 1px ( @active - #444), 0 10px 10px rgba(0,0,0,0.2);
+}
+*/
+
+h3.home-tagline {
+        margin:20px 0;
+        font-size:22px;
+        color:@white;
+        font-family:@sans;
+        text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+}
+
+h3.home-tagline a {
+        color:@white;
+        font-weight:bold;
+        border-bottom:1px dotted rgba(255,255,255,0.6);
+        padding-bottom:3px;
+}
+
+h3.home-title {
+        font-size:34px;
+        margin:0  0 30px;
+        color:@light + #222;
+
+}
+
+header.home {
+        position:relative;
+        height:240px;
+        overflow:hidden;
+}
+
+header.home .header-overlay {
+        position:absolute;
+        background:@active;
+        opacity:0.8;
+        width:100%;
+        height:240px;
+        z-index:10;
+        .box-shadow( inset 0px 3px 10px rgba(0,0,0,.40));
+}
+
+header.home .header-people-bg {
+        position:absolute;
+        z-index:5;
+        width:120%;
+}
+
+.home-thumb-wrap {
+        overflow:auto;
+}
+
+.home-thumb-person {
+        float:left;
+        width:80px;
+        height:80px;
+}
+
+.home-thumb-recent {
+        position:relative;
+        overflow:hidden;
+        float:left;
+        width:330px;
+        height:220px;
+        margin:2px 38px 38px 2px;
+        border:8px solid @white;
+        .box-shadow( 0px 3px 10px rgba(0,0,0,.40));
+}
+
+.home-thumb-recent:nth-child(3n+3) {
+        margin-right:0px;
+}
+
+.home-sep {
+        margin:30px 0;
+        border-bottom:1px #ddd solid;
+}
+
+.home-thumb-recent-desc {
+        position:absolute;
+        bottom:-70px;
+        width:310px;
+        height:50px;
+        padding:10px;
+        .gradientBar(@active, @active - #111);
+        color:@white;
+        -webkit-transition:all 0.5s ease-in-out;
+        -moz-transition:all 0.5s ease-in-out;
+        -o-transition:all 0.5s ease-in-out;
+        -ms-transition:all 0.5s ease-in-out;
+        transition:all 0.5s ease-in-out;
+}
+
+.home-thumb-recent:hover .home-thumb-recent-desc {
+        bottom:0px;
+}
+
+.home-thumb-recent-desc img {
+        float:left;
+        .border-radius(3px);
+        margin-right:10px;
+}
+
+.home-recent-title {
+        font-weight:bold;
+}
+
+.home-recent-title a,
+.home-recent-author a {
+        color:@white;
+}
+
+.home-recent-author {
+        font-family:serif;
+        font-size:13px;
+}
