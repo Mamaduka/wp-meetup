@@ -6,7 +6,7 @@ wp-meetup readme
 installation
 ------------
 
-This is a single-page theme, so you'll want to set your homepage to the page template Home (page-home.php), and then add the following code block to get you started:
+This is a single-page theme, so you'll want to set your homepage to the page template Home (page-home.php), and then edit the following code block to get you started (top of functions.php, uncomment it):
 
 	update_option( 'meetup_apikey', '' ); // Your Meetup API Key, i.e. 70144d1d5ea9566d4563
 	update_option( 'meetup_group', '' ); // Your Group URL , i.e. WordPress-Zurich
