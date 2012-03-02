@@ -8,22 +8,7 @@ get_header(); ?>
 <header class="home">
     <div class="header-overlay"></div>
     <div class="header-people-bg">
-    <?php
-
-        // People Feed
-
-        $t = tlc_transient( 'meetup_people_transient' );
-        if ( true ) {
-            $t->updates_with( 'meetup_people' );
-        } else {
-            $t->updates_with( 'meetup_people_backup' );
-        }
-
-        $t->expires_in( 3600 );
-        $t->background_only();
-        echo $t->get();
-
-    ?>
+    <?php echo meetup_people_display(); ?>
     </div>
 
     <div class="container">
@@ -86,24 +71,16 @@ get_header(); ?>
 
             <div class="twelvecol">
 
-                <?php
-
-                // Recent Work Feed
-
-                $t = tlc_transient( 'meetup_recentwork_transient' );
-                if ( true ) {
-                    $t->updates_with( 'meetup_recentwork' );
-                } else {
-                    $t->updates_with( 'meetup_recentwork_backup' );
-                }
-
-                $t->expires_in( 180 );
-                $t->background_only();
-                echo $t->get();
-
-                ?>
-
+                <?php echo meetup_recentwork_display(); ?>
+                
             </div>
+			
+			<div class="twelvecol">
+
+                <p style="margin-bottom:80px;"><em>(You can add your own project by updating your Meetup Profile)</em></p>
+                
+            </div>
+
 
     </div>
 

@@ -5,15 +5,14 @@
 <html lang="en" class="no-js">
 <head>
     
-    <title><?php wp_title(''); ?></title>  
+    <title><?php wp_title(''); ?></title>
 
     <!-- meta -->
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="google-site-verification" content="VDVdL_I5sqyU7G02sj_0vO7H4RDaFAbjcVTQEiy5Fuo" />
 
     <!-- css -->
 

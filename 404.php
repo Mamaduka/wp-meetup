@@ -1,13 +1,18 @@
 <?php get_header(); ?>
 
-  <div id="main" role="main">
+    <div class="container">
 
-    <details>
-      <summary><h1>Not found</h1></summary>
-      <p><span frown>:(</span></p>
-    </details>
+        <div class="row">
 
-  </div>
+            <div class="twelvecol">
+
+                <h1>404</h1>
+
+            </div>
+
+        </div>
+
+    <div>
 
 <?php get_sidebar(); ?>
 

@@ -9,10 +9,19 @@
  * - Meetup Functions
  * --- People Output
  * --- People Backup (upon transient fail)
+ * --- People Display
  * --- Recent Work Output
  * --- Recent Work Backup (upon transient fail)
+ * --- Recent Work Display
  *
  */
+
+/*
+update_option( 'meetup_apikey', '' );
+update_option( 'meetup_group', '' );
+update_option( 'meetup_question_url', '' );
+update_option( 'meetup_question_img', '' );
+*/
 
 // Includes
 
@@ -51,6 +60,8 @@ function meetup_people() {
 
         foreach ($meetup['results'] as $person) {
 
+            $id = $person['id'];
+
             // Thumb used for Recent Work
             $thumb50 = wpthumb( $person['photo_url'], 'width=50&height=50&crop=1&jpeg_quality=95', false );
 
@@ -76,10 +87,10 @@ function meetup_people() {
         }
 
         // Store count that is displayed within tagline
-        update_option('meetup_people_count', count($people));
+        update_option( 'meetup_people_count', count($people) );
 
         // Store Member ID's as Keys
-        update_option('meetup_people_index', $peopleindex);
+        update_option( 'meetup_people_index', $peopleindex );
 
         // Randomize the display of avatars to keep it interesting
         shuffle($people);
@@ -87,6 +98,8 @@ function meetup_people() {
         // Output Display HTML
 
         $i = 0;
+
+        $output = '';
 
         foreach ($people as $person) {
 
@@ -103,10 +116,12 @@ function meetup_people() {
 
         }
 
+        // Cover the screen
+        $output .= $output;
         $output .= $output;
 
         // Store in case of transient fail
-        update_option( 'meetup_people_backup', $output);
+        update_option( 'meetup_people_backup', $output );
 
         return $output;
 
@@ -114,13 +129,32 @@ function meetup_people() {
 
 function meetup_people_backup() {
 
-        $pics = get_option('meetup_people_backup');
+        $pics = get_option( 'meetup_people_backup' );
         if ( $pics ) { echo $pics; }
+
+}
+
+
+function meetup_people_display() {
+
+    $t = tlc_transient( 'meetup_people_transient' );
+    if ( true ) {
+        $t->updates_with( 'meetup_people' );
+    } else {
+        $t->updates_with( 'meetup_people_backup' );
+    }
+
+    $t->expires_in( 3600 );
+    $t->background_only();
+    return $t->get();
 
 }
 
 // MEETUP.COM - RECENT WORK
 //--------------------------------
+
+// function for retrieving the title of a website within meetup_recentwork()
+// TODO check string is valid url
 
 function get_site_title($url){
 
@@ -139,15 +173,31 @@ function meetup_recentwork() {
 
     $api_response = wp_remote_get( 'http://api.meetup.com/2/profiles.json?key=' . MEETUP_API . '&sign=true&group_urlname=' . MEETUP_GROUP . '&page=100' );
     $mfile = wp_remote_retrieve_body( $api_response );
-    $meetup = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $mfile ), true);
+    $meetup = json_decode(preg_replace( '/[\x00-\x1F\x80-\xFF]/', '', $mfile ), true );
 
     $recentwork = array();
 
+    $question_id_url = get_option( 'meetup_question_url' );
+    $question_id_img = get_option( 'meetup_question_img' );
+
     foreach ($meetup['results'] as $person) {
 
-        // Create array from profile question responses
-        $recentwork[] = array( 'url' => $person['answers'][1]['answer'], 'img'=> $person['answers'][2]['answer'], 'id'=> $person['member_id']);
+        $id = $person['member_id'];
 
+        if ( $person['answers'] ) {
+
+            foreach ( $person['answers'] as $question ) {
+
+                if ( $question['question_id'] == $question_id_url ) { $url =  $question['answer']; }
+                if ( $question['question_id'] == $question_id_img ) { $img =  $question['answer']; }
+
+            }
+
+        }
+
+        $recentwork[] = array( 'url' => $url, 'img' => $img, 'id'=> $id);
+        $url = '';
+        $img = '';
     }
 
     // Randomize recent work items to keep it fair & interesting
@@ -187,7 +237,7 @@ function meetup_recentwork() {
     $output .= '</div>';
 
     // Store in case of transient fail
-    update_option( 'meetup_recentwork_backup', $output);
+    update_option( 'meetup_recentwork_backup', $output );
 
     return $output;
 
@@ -196,8 +246,23 @@ function meetup_recentwork() {
 
 function meetup_recentwork_backup() {
 
-    $pics = get_option('meetup_recentwork_backup');
+    $pics = get_option( 'meetup_recentwork_backup' );
     if ( $pics ) { echo $pics; }
+
+}
+
+function meetup_recentwork_display() {
+
+    $t = tlc_transient( 'meetup_recentwork_transient' );
+    if ( true ) {
+        $t->updates_with( 'meetup_recentwork' );
+    } else {
+        $t->updates_with( 'meetup_recentwork_backup' );
+    }
+
+    $t->expires_in( 180 );
+    $t->background_only();
+    return $t->get();
 
 }
 

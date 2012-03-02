@@ -12,7 +12,7 @@
 
                    <p>
                        <span class="left">The <span class="white">WordPress Zurich Meetup</span> group is organized by <a href="http://www.noeltock.com">Noel Tock</a>, easiest reached via twitter <span style="position:relative !important; top:6px!important"><a  href="https://twitter.com/noeltock" class="twitter-follow-button" data-show-count="false">Follow @noeltock</a></span></span>
-                       <span class="right">This site is proudly powered by <a rel="nofollow" href="http://wordpress.org/">WordPress</a></span>
+                       <span class="right">This site is proudly powered by <a rel="nofollow" href="http://wordpress.org/">WordPress</a> with the <a href="https://github.com/noeltock/wp-meetup" rel="nofollow"> wp-meetup</a> theme.</span>
                    </p>
 
                 </div>
